@@ -1,22 +1,32 @@
 import 'package:flutter/material.dart';
 
 class CustomListTile extends StatelessWidget {
-  final String name, desc;
-  CustomListTile(this.name, this.desc);
+  final String name, desc, img;
+  CustomListTile(this.name, this.desc, this.img);
   @override
   Widget build(BuildContext context) {
+    print('img ${img}');
     return Center(
-      child: Column(
+      child: Row(
         children: [
-          Text(
-            name,
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
+          Image(
+            image: AssetImage('images/' + img),
+            height: 100,
+            width: 100,
           ),
-          Text(
-            desc,
-            style: TextStyle(fontSize: 18),
-            textAlign: TextAlign.left,
+          Column(
+            children: [
+              Text(
+                name,
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 14),
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
         ],
       ),

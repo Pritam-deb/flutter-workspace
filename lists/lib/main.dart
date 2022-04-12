@@ -15,27 +15,28 @@ class _ListRenderState extends State<ListsRender> {
   var lists = [
     {
       'name': 'Akira',
-      'description':
-          'Japan, 1988. An explosion caused by a young boy with psychic powers....'
+      'description': 'Japan, 1988. An explosion caused ....',
+      'image': 'akira.jpg',
     },
     {
       'name': 'Perfect Blue',
-      'description': 'J-pop idol group CHAM! has spent....'
+      'description': 'J-pop idol group CHAM! has spent....',
+      'image': 'kiminonawa.jpg',
     },
     {
       'name': 'Koe no Katachi',
-      'description':
-          'As a wild youth, elementary school student Shouya Ishida...'
+      'description': 'As a wild youth, elementary...',
+      'image': 'koenokatachi.jpg',
     },
     {
       'name': 'Violet Evergarden',
-      'description':
-          'As a wild youth, elementary school student Shouya Ishida...'
+      'description': 'As a wild youth, elementary...',
+      'image': 'perfectblue.jpg',
     },
     {
       'name': 'Kimi no nawa',
-      'description':
-          'As a wild youth, elementary school student Shouya Ishida...'
+      'description': 'As a wild youth, elementary...',
+      'image': 'violet.jpg',
     },
   ];
   // var lists = [
@@ -64,7 +65,9 @@ class _ListRenderState extends State<ListsRender> {
                 itemBuilder: (context, index) {
                   final name = lists[index]['name'];
                   final desc = lists[index]['description'];
-                  return CustomListTile(name as String, desc as String);
+                  final img = lists[index]['image'];
+                  return CustomListTile(
+                      name as String, desc as String, img as String);
                 },
               ),
             ),
