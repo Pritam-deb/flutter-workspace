@@ -6,48 +6,54 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('img ${img}');
-    return Center(
-      child: Row(
-        children: [
-          Container(
-            child: CircleAvatar(
-              backgroundImage: AssetImage('images/' + img),
-              radius: 100,
-            ),
-            height: 100,
-            width: 100,
-          ),
-          SizedBox(
-            height: 210,
-            width: 250,
-            child: Card(
+    return Container(
+      color: Colors.green,
+      height: 210,
+      width: 200,
+      child: Card(
+          color: Colors.orange,
+          child: Row(
+            children: [
+              Container(
+                child: CircleAvatar(
+                  backgroundImage: AssetImage('images/' + img),
+                  radius: 100,
+                ),
+                height: 100,
+                width: 100,
+              ),
+              Expanded(
                 child: Column(
-              children: [
-                ListTile(
-                  title: Text(
-                    name,
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.left,
-                  ),
-                  subtitle: Text(
-                    'Year: ' + year,
-                    // style: TextStyle(fontSize: 14),
-                    // textAlign: TextAlign.left,
-                  ),
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    ListTile(
+                      title: Text(
+                        name,
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.left,
+                      ),
+                      subtitle: Text(
+                        'Year: ' + year,
+                        // style: TextStyle(fontSize: 14),
+                        // textAlign: TextAlign.left,
+                      ),
+                    ),
+                    const Divider(
+                      height: 1,
+                      color: Colors.black,
+                    ),
+                    Text(
+                      desc,
+                      maxLines: 5,
+                      // overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
-                const Divider(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    desc,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            )),
-          ),
-        ],
-      ),
+              ),
+            ],
+          )),
     );
   }
 }
