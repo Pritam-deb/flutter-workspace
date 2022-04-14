@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:english_words/english_words.dart';
+
+import './randomWords.dart';
 
 void main(List<String> args) {
   runApp(startup_namer());
 }
 
 class startup_namer extends StatelessWidget {
+  // final wordPair = WordPair.random();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,7 +16,7 @@ class startup_namer extends StatelessWidget {
         appBar: AppBar(
           title: Text('Startup Names'),
         ),
-        body: Center(child: Text('Hello world')),
+        body: Center(child: RandomWords()),
       ),
     );
   }
