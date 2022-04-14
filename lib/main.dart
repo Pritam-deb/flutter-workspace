@@ -17,9 +17,13 @@ class _mainLayoutState extends State<mainLayout> {
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 68, 8, 146),
         title: Text('Layouts Play'),
       ),
       body: Card(
+        shadowColor: Color.fromARGB(255, 175, 56, 249),
+        elevation: 10,
+        color: Color.fromARGB(255, 179, 136, 222),
         child: Container(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -40,15 +44,14 @@ class _mainLayoutState extends State<mainLayout> {
                       Text(
                         "Flutter McFlutter",
                         style: TextStyle(
-                          fontSize: 30,
-                        ),
+                            fontSize: 30,
+                            color: Color.fromARGB(255, 49, 2, 73)),
                         textAlign: TextAlign.left,
                       ),
                       Text(
                         "Experienced App Developer",
                         style: TextStyle(
-                          fontSize: 20,
-                        ),
+                            fontSize: 20, fontStyle: FontStyle.italic),
                       ),
                     ],
                   )
@@ -82,18 +85,22 @@ class _mainLayoutState extends State<mainLayout> {
                   Icon(
                     Icons.accessibility,
                     size: 30,
+                    color: Colors.white,
                   ),
                   Icon(
                     Icons.timer,
                     size: 30,
+                    color: Colors.white,
                   ),
                   Icon(
                     Icons.phone_android,
                     size: 30,
+                    color: Colors.white,
                   ),
                   Icon(
                     Icons.phone_iphone,
                     size: 30,
+                    color: Colors.white,
                   ),
                 ],
               )
