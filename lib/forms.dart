@@ -87,7 +87,7 @@ class _FormsState extends State<Forms> {
                     );
                   }
                 },
-                child: Text('Submit email')),
+                child: Text('Submit')),
           )
         ],
       ),
