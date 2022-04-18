@@ -14,7 +14,8 @@ class forms extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('This is form!'),
+          title: Text('Controllers in Form'),
+          backgroundColor: Color.fromARGB(255, 176, 115, 255),
         ),
         body: Forms(),
       ),

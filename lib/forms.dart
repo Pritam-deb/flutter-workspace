@@ -9,6 +9,32 @@ class Forms extends StatefulWidget {
 
 class _FormsState extends State<Forms> {
   final _formKey = GlobalKey<FormState>();
+
+  final myController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Start listening to changes.
+    myController.addListener(showChar);
+  }
+
+  void showChar() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+          content: Text('${myController.text.length} characters in password')),
+    );
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
+  bool _checked = false;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -65,6 +91,15 @@ class _FormsState extends State<Forms> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              obscureText: true,
+              controller: myController,
+              // onChanged: (text) {
+              //   int num = text.length;
+              //   // print('$num is entered');
+              //   AlertDialog(
+              //     content: Text('your password is $num characters long'),
+              //   );
+              // },
               decoration: InputDecoration(
                   labelText: 'Create password',
                   border: OutlineInputBorder(),
@@ -77,17 +112,29 @@ class _FormsState extends State<Forms> {
               },
             ),
           ),
+          CheckboxListTile(
+            title: Text('Are you Indian?'),
+            secondary: Icon(Icons.flag),
+            controlAffinity: ListTileControlAffinity.platform,
+            value: _checked,
+            onChanged: (bool? value) {
+              setState(() {
+                _checked = value!;
+              });
+            },
+          ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 26.0),
             child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('data processing')),
-                    );
-                  }
-                },
-                child: Text('Submit')),
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('data processing')),
+                  );
+                }
+              },
+              child: Text('Submit'),
+            ),
           )
         ],
       ),
