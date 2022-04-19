@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_workspace/model/transaction.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_workspace/model/transaction.dart';
+import 'package:flutter_workspace/widgets/new_transactions.dart';
+import 'package:flutter_workspace/widgets/transaction_list.dart';
+import 'package:flutter_workspace/widgets/user_transactions.dart';
 
 import 'model/transaction.dart';
 
@@ -9,9 +12,6 @@ void main(List<String> args) {
 }
 
 class HomePage extends StatelessWidget {
-  final titleInput = TextEditingController();
-  final amountInput = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,33 +32,7 @@ class HomePage extends StatelessWidget {
               ),
               elevation: 5,
             ),
-            Card(
-              elevation: 5,
-              child: Container(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    TextField(
-                        controller: titleInput,
-                        decoration: InputDecoration(
-                          labelText: 'Title',
-                        )),
-                    TextField(
-                        controller: amountInput,
-                        decoration: InputDecoration(
-                          labelText: 'Amount',
-                        )),
-                    TextButton(
-                        onPressed: () {
-                          print(amountInput.text);
-                          print(titleInput.text);
-                        },
-                        child: Text('Add Transaction'))
-                  ],
-                ),
-              ),
-            ),
+            UserTransaction(),
           ],
         ),
       ),
