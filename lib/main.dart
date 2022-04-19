@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_workspace/transaction.dart';
+import 'package:flutter_workspace/model/transaction.dart';
+import 'package:intl/intl.dart';
 
-import './transaction.dart';
+import 'model/transaction.dart';
 
 void main(List<String> args) {
   runApp(HomePage());
 }
 
 class HomePage extends StatelessWidget {
-  final List<Transaction> transactions = [
-    Transaction(id: 't1', title: 'AJ1', amount: 12000, date: DateTime.now()),
-    Transaction(id: 't2', title: 'AirMax', amount: 8000, date: DateTime.now()),
-    Transaction(id: 't3', title: 'AF1', amount: 9500, date: DateTime.now())
-  ];
+  final titleInput = TextEditingController();
+  final amountInput = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,30 +20,45 @@ class HomePage extends StatelessWidget {
           title: Text('Expense Tracker'),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Card(
               child: Container(
-                child: Text('this is chart'),
+                child: Text('this is chart will show daily expense'),
                 width: double.infinity,
                 height: 200,
                 color: Colors.amberAccent,
               ),
               elevation: 5,
             ),
-            Column(
-              children: transactions.map((tr) {
-                return Card(
-                  child: Container(
-                    child: Text(tr.title),
-                    // width: double.infinity,
-                    // height: double.infinity,
-                    color: Colors.blue,
-                  ),
-                );
-              }).toList(),
-            )
+            Card(
+              elevation: 5,
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    TextField(
+                        controller: titleInput,
+                        decoration: InputDecoration(
+                          labelText: 'Title',
+                        )),
+                    TextField(
+                        controller: amountInput,
+                        decoration: InputDecoration(
+                          labelText: 'Amount',
+                        )),
+                    TextButton(
+                        onPressed: () {
+                          print(amountInput.text);
+                          print(titleInput.text);
+                        },
+                        child: Text('Add Transaction'))
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
