@@ -20,6 +20,7 @@ class NewTransactions extends StatelessWidget {
                   labelText: 'Title',
                 )),
             TextField(
+                keyboardType: TextInputType.number,
                 controller: amountInput,
                 decoration: InputDecoration(
                   labelText: 'Amount',
