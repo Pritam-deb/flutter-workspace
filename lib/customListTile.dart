@@ -8,11 +8,12 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     print('img ${img}');
     return Container(
-      color: Colors.green,
+      color: Color.fromARGB(255, 255, 255, 255),
       height: 210,
       width: 200,
       child: Card(
-          color: Colors.orange,
+          elevation: 10,
+          color: Color.fromARGB(255, 251, 251, 251),
           child: Row(
             children: [
               Container(
