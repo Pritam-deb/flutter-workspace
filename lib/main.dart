@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import './widget/strikeThrough.dart';
 
 void main() {
   runApp(HomePage());
 }
 
 var items = ['item1', 'item2', 'item3'];
+bool toggle = true;
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,12 +23,15 @@ class _HomePageState extends State<HomePage> {
         ),
         body: ReorderableListView(
           children: [
-            for (final value in items)
-              Text(
-                value,
-                key: Key(value),
-                style: TextStyle(fontSize: 22.0),
-                textAlign: TextAlign.center,
+            for (final item in items)
+              CheckboxListTile(
+                value: toggle,
+                onChanged: null,
+                key: Key(item),
+                title: StrikeThrough(
+                  todoText: item,
+                  todoToggle: toggle,
+                ),
               ),
           ],
           onReorder: (oldIndex, newIndex) {
