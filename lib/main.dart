@@ -6,7 +6,12 @@ void main() {
 
 var items = ['item1', 'item2', 'item3'];
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,9 +25,19 @@ class HomePage extends StatelessWidget {
               Text(
                 value,
                 key: Key(value),
+                style: TextStyle(fontSize: 22.0),
+                textAlign: TextAlign.center,
               ),
           ],
-          onReorder: (oldIndex, newIndex) {},
+          onReorder: (oldIndex, newIndex) {
+            setState(() {
+              if (oldIndex < newIndex) {
+                newIndex -= 1;
+              }
+              var getReplacedWidget = items.removeAt(oldIndex);
+              items.insert(newIndex, getReplacedWidget);
+            });
+          },
         ),
       ),
     );
