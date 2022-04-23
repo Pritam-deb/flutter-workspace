@@ -6,7 +6,7 @@ void main() {
 }
 
 var items = ['item1', 'item2', 'item3'];
-bool toggle = true;
+bool toggle = false;
 
 class HomePage extends StatefulWidget {
   @override
@@ -26,7 +26,15 @@ class _HomePageState extends State<HomePage> {
             for (final item in items)
               CheckboxListTile(
                 value: toggle,
-                onChanged: null,
+                onChanged: (bool) {
+                  setState(() {
+                    if (bool!) {
+                      toggle = true;
+                    } else {
+                      toggle = false;
+                    }
+                  });
+                },
                 key: Key(item),
                 title: StrikeThrough(
                   todoText: item,
