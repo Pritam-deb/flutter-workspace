@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_workspace/screen/add_task-screen.dart';
 // import 'package:provider/provider.dart';
-
+import '../widget/task_list.dart';
 import '../models/task_data.dart';
 
 class TaskScreen extends StatelessWidget {
-  const TaskScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,6 +15,7 @@ class TaskScreen extends StatelessWidget {
         onPressed: () {
           showModalBottomSheet(
               context: context,
+              isScrollControlled: true,
               builder: (context) => SingleChildScrollView(
                     child: Container(
                       padding: EdgeInsets.only(
@@ -34,7 +33,7 @@ class TaskScreen extends StatelessWidget {
             padding: EdgeInsets.only(top: 40, left: 30, right: 20, bottom: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: <Widget>[
                 CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 30,
@@ -48,16 +47,20 @@ class TaskScreen extends StatelessWidget {
                 Text(
                   'Todoist',
                   style: TextStyle(
-                      fontSize: 50,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white),
+                    fontSize: 50,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
                 ),
                 SizedBox(
                   height: 5,
                 ),
                 Text(
                   '${Provider.of<TaskData>(context).taskCount} Tasks',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
@@ -65,6 +68,14 @@ class TaskScreen extends StatelessWidget {
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
+              child: TaskList(),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
             ),
           )
         ],
