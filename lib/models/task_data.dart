@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_workspace/widget/models/task.dart';
+import 'package:flutter_workspace/models/task.dart';
 
 class TaskData extends ChangeNotifier {
   List _tasks = [
