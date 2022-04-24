@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_workspace/screen/add_task-screen.dart';
 // import 'package:provider/provider.dart';
 
@@ -29,20 +30,42 @@ class TaskScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(
-            backgroundColor: Colors.white,
-            radius: 30,
-            child: Icon(
-              Icons.list,
-              size: 45,
-              color: Colors.blue,
+          Container(
+            padding: EdgeInsets.only(top: 40, left: 30, right: 20, bottom: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 30,
+                  child: Icon(
+                    Icons.list,
+                    size: 45,
+                    color: Colors.blue,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Todoist',
+                  style: TextStyle(
+                      fontSize: 50,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  '${Provider.of<TaskData>(context).taskCount} Tasks',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ],
             ),
           ),
-          SizedBox(height: 10),
-          Text(
-            'Todoist',
-            style: TextStyle(
-                fontSize: 50, fontWeight: FontWeight.w700, color: Colors.white),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+            ),
           )
         ],
       ),
