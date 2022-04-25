@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class TaskTile extends StatelessWidget {
   final bool isChecked;
   final String taskTitle;
-  var checkboxCallback;
-  var longPressCallback;
+  final checkboxCallback;
+  final longPressCallback;
 
   TaskTile({
     required this.isChecked,
