@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import './service/student_service.dart';
+import './models/student.dart';
 
 void main() {
-  runApp(const HomePage());
+  runApp(HomePage());
+  loadStudent();
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Main title',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
