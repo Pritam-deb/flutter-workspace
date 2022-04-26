@@ -1,12 +1,10 @@
 class Student {
   final String studentID;
   final String studentName;
-  final int studentScore;
+  final int? studentScore;
 
   Student(
-      {required this.studentID,
-      required this.studentName,
-      required this.studentScore});
+      {required this.studentID, required this.studentName, this.studentScore});
 
   factory Student.fromJson(Map<String, dynamic> parsedJson) {
     return Student(
