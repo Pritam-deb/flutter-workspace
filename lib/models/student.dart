@@ -1,7 +1,7 @@
 class Student {
-  String studentID;
-  String studentName;
-  int studentScore;
+  final String studentID;
+  final String studentName;
+  final int studentScore;
 
   Student(
       {required this.studentID,

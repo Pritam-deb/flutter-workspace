@@ -4,7 +4,6 @@ import './models/student.dart';
 
 void main() {
   runApp(HomePage());
-  loadStudent();
 }
 
 class HomePage extends StatefulWidget {
@@ -13,6 +12,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Student? s = Student(studentID: '', studentName: '', studentScore: 0);
+  @override
+  void initState() {
+    // TODO: implement initState
+    init();
+    super.initState();
+  }
+
+  init() async {
+    s = await loadStudent();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,18 +33,22 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView.builder(
         itemBuilder: ((context, index) {
+          if (s == null) {
+            return SizedBox();
+          }
           return Card(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Main title',
+                  Text(
+                    s?.studentName ?? '',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    'details',
+                    s?.studentID ?? '',
+                    //'',
                     style: TextStyle(fontSize: 15, color: Colors.grey.shade400),
                   ),
                 ],
