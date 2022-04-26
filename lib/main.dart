@@ -1,63 +1,84 @@
 import 'package:flutter/material.dart';
-import './service/student_service.dart';
-import './models/student.dart';
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 
 void main() {
-  runApp(HomePage());
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      // Hide the debug banner
+      debugShowCheckedModeBanner: false,
+      title: 'Kindacode.com',
+      home: HomePage(),
+    );
+  }
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
-  State<HomePage> createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  Student? s = Student(studentID: '', studentName: '', studentScore: 0);
-  @override
-  void initState() {
-    // TODO: implement initState
-    init();
-    super.initState();
-  }
+  List _items = [];
 
-  init() async {
-    s = await loadStudent();
+  // Fetch content from the json file
+  Future<void> readJson() async {
+    final String response = await rootBundle.loadString('assets/items.json');
+    final data = await json.decode(response);
+    setState(() {
+      _items = data["items"];
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: Text('Fetched List!'),
+        centerTitle: true,
+        title: const Text(
+          'Kindacode.com',
+        ),
       ),
-      body: ListView.builder(
-        itemBuilder: ((context, index) {
-          if (s == null) {
-            return SizedBox();
-          }
-          return Card(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    s?.studentName ?? '',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    s?.studentID ?? '',
-                    //'',
-                    style: TextStyle(fontSize: 15, color: Colors.grey.shade400),
-                  ),
-                ],
-              ),
+      body: Padding(
+        padding: const EdgeInsets.all(25),
+        child: Column(
+          children: [
+            ElevatedButton(
+              child: const Text('Load Data'),
+              onPressed: readJson,
             ),
-          );
-        }),
-        itemCount: 20,
+
+            // Display the data loaded from sample.json
+            _items.isNotEmpty
+                ? Expanded(
+                    child: ListView.builder(
+                      itemCount: _items.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          margin: const EdgeInsets.all(10),
+                          child: ListTile(
+                            leading: Text(_items[index]["id"].toString()),
+                            title: Text(_items[index]["name"]),
+                            subtitle: Text(_items[index]["description"]),
+                          ),
+                        );
+                      },
+                    ),
+                  )
+                : Container()
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
