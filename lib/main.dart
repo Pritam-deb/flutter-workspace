@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import './service/student_service.dart';
 import './models/student.dart';
+import './models/address.dart';
+import './service/address_service.dart';
 
 void main() {
   runApp(HomePage());
@@ -12,18 +14,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Student? s = Student(studentID: '', studentName: '');
+  // Student? s = Student(studentID: '', studentName: '');
+  Address add = Address();
+
   @override
   void initState() {
     // TODO: implement initState
     init();
+    // print(add.streets);
     super.initState();
   }
 
   init() async {
-    s = await loadStudent();
+    // s = await loadStudent();
+
+    add = await loadAddress();
+    print(add.streets);
   }
 
+  // print(add.streets.length);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,7 +42,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView.builder(
         itemBuilder: ((context, index) {
-          if (s == null) {
+          if (add == null) {
             return SizedBox();
           }
           return Card(
@@ -43,12 +52,14 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    s?.studentName ?? '',
+                    // s?.studentName ?? '',
+                    add.city ?? '',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    s?.studentScore.toString() ?? '',
-                    //'',
+                    // s?.studentScore.toString() ?? '',
+                    add.streets?[index] ?? '',
+
                     style: TextStyle(fontSize: 15, color: Colors.grey.shade400),
                   ),
                 ],
@@ -56,7 +67,7 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         }),
-        itemCount: 20,
+        itemCount: 2,
       ),
     ));
   }
