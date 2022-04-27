@@ -11,16 +11,17 @@ String? stringResponse;
 Map? mapResponse;
 Map? dataResponse;
 Map? supportResponse;
+List? listResponse;
 
 class _HomePageState extends State<HomePage> {
   Future apicall() async {
     http.Response response;
-    response = await http.get(Uri.parse('https://reqres.in/api/users/2'));
+    response = await http.get(Uri.parse('https://reqres.in/api/users?page=2'));
     if (response.statusCode == 200) {
       setState(() {
         stringResponse = response.body;
         mapResponse = jsonDecode(response.body);
-        dataResponse = mapResponse!['data'];
+        listResponse = mapResponse!['data'];
         supportResponse = mapResponse!['support'];
       });
     }
@@ -39,21 +40,28 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('API fetching'),
       ),
-      body: Center(
-        child: Container(
-          height: 200,
-          width: 300,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.amberAccent),
-          child: Center(
-            child: dataResponse == null || supportResponse == null
-                ? Text("loading the data...")
-                : Text(
-                    dataResponse!['email'].toString(),
-                  ),
-          ),
-        ),
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          return Container(
+            child: Center(
+              child: Container(
+                height: 200,
+                width: 300,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.amberAccent),
+                child: Center(
+                  child: listResponse == null || supportResponse == null
+                      ? Text("loading the data...")
+                      : Text(
+                          listResponse![index]['first_name'].toString(),
+                        ),
+                ),
+              ),
+            ),
+          );
+        },
+        itemCount: listResponse == null ? 0 : listResponse!.length,
       ),
     );
   }
