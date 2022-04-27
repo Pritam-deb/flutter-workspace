@@ -9,6 +9,8 @@ class HomePage extends StatefulWidget {
 
 String? stringResponse;
 Map? mapResponse;
+Map? dataResponse;
+Map? supportResponse;
 
 class _HomePageState extends State<HomePage> {
   Future apicall() async {
@@ -18,6 +20,8 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         stringResponse = response.body;
         mapResponse = jsonDecode(response.body);
+        dataResponse = mapResponse!['data'];
+        supportResponse = mapResponse!['support'];
       });
     }
   }
@@ -43,10 +47,10 @@ class _HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.circular(20),
               color: Colors.amberAccent),
           child: Center(
-            child: mapResponse == null
+            child: dataResponse == null || supportResponse == null
                 ? Text("loading the data...")
                 : Text(
-                    mapResponse!['data'].toString(),
+                    dataResponse!['email'].toString(),
                   ),
           ),
         ),
