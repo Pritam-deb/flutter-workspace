@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './notelistscreen.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,6 +9,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final notesController = TextEditingController();
+
+  Future<void> setNotesData(noteValue) async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('noteData', noteValue);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +38,9 @@ class _HomePageState extends State<HomePage> {
                 height: 10,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  setNotesData(notesController.text);
+                },
                 child: Text('Save Text'),
               ),
               SizedBox(

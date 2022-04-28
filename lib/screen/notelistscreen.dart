@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NoteList extends StatefulWidget {
   @override
@@ -6,9 +7,17 @@ class NoteList extends StatefulWidget {
 }
 
 class _NoteListState extends State<NoteList> {
+  String? noteValue;
   @override
+  void getNotes() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    noteValue = pref.getString('noteData');
+    setState(() {});
+  }
+
   void initState() {
     super.initState();
+    getNotes();
   }
 
   Widget build(BuildContext context) {
@@ -17,7 +26,8 @@ class _NoteListState extends State<NoteList> {
         title: Text('Notes Lists Screen'),
       ),
       body: Center(
-        child: Text('Notes'),
+        child:
+            noteValue == null ? Text('No Note saved yet!') : Text(noteValue!),
       ),
     );
   }
