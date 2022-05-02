@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_workspace/model/source.dart';
 
-import 'articel.dart';
+import 'article.dart';
 
 class ArticleModel {
   int? totalResults;
@@ -23,3 +23,8 @@ class ArticleModel {
         "articles": List<dynamic>.from(articles!.map((e) => e.toJson())),
       };
 }
+
+ArticleModel articleModelFromJson(String str) =>
+    ArticleModel.fromJson(json.decode(str));
+
+String articleModelToJson(ArticleModel data) => json.encode(data.toJson());
