@@ -53,15 +53,15 @@ class _HomePageState extends State<HomePage> {
               ? !newsFetch!.isLoading
                   ? Column(
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: width * 0.04,
-                              right: width * 0.04,
-                              top: height * 0.023),
-                          child: Column(
-                            children: [searchTextField(), buildHead()],
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: EdgeInsets.only(
+                        //       left: width * 0.04,
+                        //       right: width * 0.04,
+                        //       top: height * 0.023),
+                        //   child: Column(
+                        //     children: [searchTextField(), buildHead()],
+                        //   ),
+                        // ),
                         buildBody(height),
                       ],
                     )
@@ -199,7 +199,7 @@ class _HomePageState extends State<HomePage> {
               },
             )
           : Icon(
-              Icons.cloud,
+              Icons.newspaper,
               color: kWhite,
             ),
       titleSpacing: 0,
@@ -226,31 +226,31 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        location,
-                        style: kBody1.copyWith(
-                            fontSize: 12, color: kSecondaryColor),
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 4.0),
-                            child: Icon(
-                              Icons.location_on,
-                              size: 14,
-                              color: kSecondaryColor,
-                            ),
-                          ),
-                          Text(
-                            newsFetch!.country.toString(),
-                            style: kBody1.copyWith(color: kSecondaryColor),
-                          ),
-                        ],
-                      )
+                      // Text(
+                      //   location,
+                      //   style: kBody1.copyWith(
+                      //       fontSize: 12, color: kSecondaryColor),
+                      // ),
+                      // SizedBox(
+                      //   height: 2,
+                      // ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   children: [
+                      //     Padding(
+                      //       padding: const EdgeInsets.only(right: 4.0),
+                      //       child: Icon(
+                      //         Icons.location_on,
+                      //         size: 14,
+                      //         color: kSecondaryColor,
+                      //       ),
+                      //     ),
+                      //     Text(
+                      //       newsFetch!.country.toString(),
+                      //       style: kBody1.copyWith(color: kSecondaryColor),
+                      //     ),
+                      //   ],
+                      // )
                     ],
                   ),
                 ),
