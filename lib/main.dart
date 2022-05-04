@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_workspace/screens/home.dart';
 import 'package:provider/provider.dart';
-import './data/news_fetch.dart';
+import './services/news_fetch.dart';
 
 void main() {
   runApp(

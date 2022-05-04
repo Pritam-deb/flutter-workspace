@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'article_detail.dart';
-import '../data/news_fetch.dart';
+import '../services/news_fetch.dart';
 import '../model/article_model.dart';
 import '../utils/colors.dart';
 import '../utils/textStyles.dart';
