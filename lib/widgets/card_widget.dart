@@ -9,6 +9,7 @@ import '../model/article_model.dart';
 
 class CardWidget extends StatelessWidget {
   final Article? article;
+  final _saved = <Article>{};
 
   CardWidget({
     this.article,
@@ -70,21 +71,31 @@ class CardWidget extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(6.0),
-                child: Container(
-                  height: height * 0.24,
-                  width: width * 0.4,
-                  child: CachedNetworkImage(
-                    imageUrl: "${article?.urlToImage}",
-                    fit: BoxFit.cover,
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) => Center(
-                            child: CircularProgressIndicator(
-                                value: downloadProgress.progress)),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(6.0),
+                    child: Container(
+                      height: height * 0.24,
+                      width: width * 0.4,
+                      child: CachedNetworkImage(
+                        imageUrl: "${article?.urlToImage}",
+                        fit: BoxFit.cover,
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) => Center(
+                                child: CircularProgressIndicator(
+                                    value: downloadProgress.progress)),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                    ),
                   ),
-                ),
+                  Icon(
+                    Icons.favorite_border,
+                    color: null,
+                    semanticLabel: 'Save',
+                  ),
+                ],
               )
             ],
           )),

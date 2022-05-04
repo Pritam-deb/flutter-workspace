@@ -46,7 +46,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
             Stack(
               children: [
                 CachedNetworkImage(
-                  imageUrl: "${widget?.article?.urlToImage}",
+                  imageUrl: "${widget.article?.urlToImage}",
                   height: MediaQuery.of(context).size.height * 0.4,
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
@@ -62,7 +62,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                     right: width * 0.04,
                     child: Container(
                         width: MediaQuery.of(context).size.width,
-                        child: Text(widget!.article!.title.toString(),
+                        child: Text(widget.article!.title.toString(),
                             maxLines: 2,
                             style: kHeading.copyWith(color: kWhite)))),
               ],
@@ -73,7 +73,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget!.article!.source!.name.toString(),
+                  Text(widget.article!.source!.name.toString(),
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
@@ -82,18 +82,18 @@ class _ArticleDetailState extends State<ArticleDetail> {
                   Padding(
                     padding: const EdgeInsets.only(top: 6.0, bottom: 16),
                     child: Text(
-                      "${DateFormat('dd-MM-yyy, hh:mm a').format(widget!.article!.publishedAt!)}",
+                      "${DateFormat('dd-MM-yyy, hh:mm a').format(widget.article!.publishedAt!)}",
                       style: kCaption,
                     ),
                   ),
                   Text(
-                    widget!.article!.content != null
-                        ? widget!.article!.content.toString()
+                    widget.article!.content != null
+                        ? widget.article!.content.toString()
                         : "",
                     style: kBody,
                   ),
                   GestureDetector(
-                    onTap: () => _launchURL(widget!.article!.url.toString()),
+                    onTap: () => _launchURL(widget.article!.url.toString()),
                     child: Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Row(

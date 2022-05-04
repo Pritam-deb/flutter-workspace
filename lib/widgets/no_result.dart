@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
 
 class NoResult extends StatelessWidget {
   @override
@@ -8,11 +7,6 @@ class NoResult extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            "assets/no_result.svg",
-            height: 100,
-            width: 100,
-          ),
           Padding(
             padding: const EdgeInsets.only(top: 4.0),
             child: Text(

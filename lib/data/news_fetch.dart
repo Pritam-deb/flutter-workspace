@@ -14,37 +14,8 @@ class NewsFetch extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool searching = false;
-  bool get isSearching => searching;
-  set isSearching(bool value) {
-    searching = value;
-    notifyListeners();
-  }
-
-  bool connected = false;
-  bool get isConnected => connected;
-  set isConnected(bool value) {
-    connected = value;
-    notifyListeners();
-  }
-
-  bool oldest = false;
-  bool get isOldest => oldest;
-  set isOldest(bool value) {
-    oldest = value;
-    notifyListeners();
-  }
-
-  String country = "India";
-  String get selCountry => country;
-  set selCountry(String value) {
-    country = value;
-    notifyListeners();
-  }
-
   Future<ArticleModel> getNews(String q, {String country = "in"}) async {
     try {
-      isLoading = !searching;
       final queryParameters = {'country': country, 'apiKey': apiKey, 'q': q};
       final response = await http.get(
         Uri.https(url, "/v2/top-headlines", queryParameters),
