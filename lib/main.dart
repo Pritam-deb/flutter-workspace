@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_workspace/screens/home.dart';
 import 'package:provider/provider.dart';
-import './services/news_fetch.dart';
+import './model/news_provider.dart';
+
+import 'screens/home.dart';
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => NewsFetch(),
-        )
-      ],
-      child: MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'News API',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => NewsList(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const Homepage(),
       ),
-      home: HomePage(),
     );
   }
 }

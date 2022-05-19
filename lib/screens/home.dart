@@ -1,125 +1,66 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../widgets/news_tile.dart';
+import '../model/news_model.dart';
+import '../model/news_provider.dart';
+import '../utils/strings.dart' as strings;
 
-import 'article_detail.dart';
-import '../services/news_fetch.dart';
-import '../model/article_model.dart';
-import '../utils/colors.dart';
-import '../utils/textStyles.dart';
-import '../utils/strings.dart';
-import '../widgets/card_widget.dart';
-import '../widgets/no_result.dart';
-import 'package:flutter_workspace/widgets/card_widget.dart';
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class Homepage extends StatefulWidget {
+  const Homepage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Homepage> createState() => _HomepageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  NewsFetch? newsFetch;
-  ArticleModel? articleModel;
-  final TextEditingController textEditingController = TextEditingController();
+class _HomepageState extends State<Homepage> {
   @override
   void initState() {
-    getNews();
     super.initState();
+    fetchNews();
   }
 
-  Future getNews({String country = "in"}) async {
-    articleModel = await Provider.of<NewsFetch>(context, listen: false)
-        .getNews(textEditingController.text, country: country);
+  void fetchNews() async {
+    final prefs = await SharedPreferences.getInstance();
+    String res;
+    print(prefs.getString('apiData'));
+    if (prefs.getString('apiData') != null) {
+      res = prefs.getString('apiData')!;
+    } else {
+      final response = await http.get(Uri.parse(strings.url));
+      res = response.body;
+      prefs.setString('apiData', res);
+    }
+    final jsonData = json.decode(res);
+    Provider.of<NewsList>(
+      context,
+      listen: false,
+    ).addNews(jsonData['articles']);
   }
 
   @override
   Widget build(BuildContext context) {
-    newsFetch = Provider.of<NewsFetch>(context);
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: RefreshIndicator(
-        onRefresh: getNews,
-        child: Scaffold(
-            backgroundColor: kSecondaryColor,
-            appBar: buildAppBar(),
-            body: Column(
-              children: [
-                buildBody(height),
-              ],
-            )),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(strings.homeScreenTitle),
+      ),
+      body: Consumer<NewsList>(
+        builder: ((context, _provider, child) {
+          return _provider.newsList.isNotEmpty
+              ? ListView.builder(
+                  itemCount: _provider.newsList.length,
+                  itemBuilder: ((context, index) {
+                    return NewsTile(
+                      news: _provider.newsList[index],
+                    );
+                  }),
+                )
+              : const CircularProgressIndicator();
+        }),
       ),
     );
   }
-
-  Widget buildBody(double height) {
-    return (textEditingController.text.isNotEmpty &&
-                articleModel?.articles?.length == 0) ||
-            articleModel == null
-        ? Padding(
-            padding: EdgeInsets.only(top: height * 0.2),
-            child: NoResult(),
-          )
-        : Expanded(
-            child: ListView.builder(
-              physics: AlwaysScrollableScrollPhysics(),
-              itemCount: articleModel?.articles?.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                int? l = articleModel?.articles?.length;
-                int fromLast = l! - index - 1;
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ArticleDetail(
-                                  article: articleModel?.articles?[index],
-                                )));
-                  },
-                  child: CardWidget(article: articleModel?.articles?[index]),
-                );
-              },
-            ),
-          );
-  }
-
-  Padding buildHead() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            heading,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Color(0xff586580)),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-AppBar buildAppBar() {
-  return AppBar(
-    leading: Icon(
-      Icons.newspaper,
-      color: kWhite,
-    ),
-    titleSpacing: 0,
-    title: Text(
-      title,
-      style: kBody.copyWith(color: kSecondaryColor),
-    ),
-    backwardsCompatibility: false,
-    systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: kPrimaryColor),
-    backgroundColor: kPrimaryColor,
-  );
 }
