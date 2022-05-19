@@ -8,6 +8,8 @@ import '../widgets/news_tile.dart';
 import '../model/news_model.dart';
 import '../model/news_provider.dart';
 import '../utils/strings.dart' as strings;
+import '../view_models/provider_handler.dart';
+import '../view_models/provider_callback.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -17,6 +19,7 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  NewsList newsList = NewsList();
   @override
   void initState() {
     super.initState();
@@ -35,10 +38,14 @@ class _HomepageState extends State<Homepage> {
       prefs.setString('apiData', res);
     }
     final jsonData = json.decode(res);
-    Provider.of<NewsList>(
+    providerCallback<NewsList>(
       context,
-      listen: false,
-    ).addNews(jsonData['articles']);
+      task: (provider) {
+        provider.addNews(jsonData['articles']);
+      },
+      taskName: (provider) => provider.GET_NEWS,
+      onSuccess: (provder) {},
+    );
   }
 
   @override
@@ -47,19 +54,23 @@ class _HomepageState extends State<Homepage> {
       appBar: AppBar(
         title: Text(strings.homeScreenTitle),
       ),
-      body: Consumer<NewsList>(
-        builder: ((context, _provider, child) {
-          return _provider.newsList.isNotEmpty
-              ? ListView.builder(
-                  itemCount: _provider.newsList.length,
-                  itemBuilder: ((context, index) {
-                    return NewsTile(
-                      news: _provider.newsList[index],
-                    );
-                  }),
-                )
-              : const CircularProgressIndicator();
-        }),
+      body: ProviderHandler<NewsList>(
+        key: UniqueKey(),
+        functionName: newsList.GET_NEWS,
+        showError: false,
+        load: (provider) {},
+        loaderBuilder: (provider) => CircularProgressIndicator(),
+        errorBuilder: (provider) => Text("error"),
+        successBuilder: (provider) {
+          return ListView.builder(
+            itemCount: provider.newsList.length,
+            itemBuilder: ((context, index) {
+              return NewsTile(
+                news: provider.newsList[index],
+              );
+            }),
+          );
+        },
       ),
     );
   }
